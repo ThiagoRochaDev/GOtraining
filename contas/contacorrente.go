@@ -2,10 +2,12 @@ package contas
 
 import (
 	"fmt"
+
+	"github.com/alura/orientacao_objeto/clientes"
 )
 
 type ContaCorrente struct { // cria estrutura do objeto , (maiusculo permite encontrar em outros pacotes do projeto)
-	Titular string
+	Titular clientes.Cliente
 	Conta   int
 	Agencia int
 	Saldo   float64
@@ -75,4 +77,8 @@ func (c *ContaCorrente) CalculaTransferencia(transferencia float64, contaDestino
 		return false
 	}
 
+}
+
+func (c *ContaCorrente) ObterSaldo() float64 {
+	return c.Saldo
 }

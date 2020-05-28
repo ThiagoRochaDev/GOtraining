@@ -4,15 +4,19 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/alura/orientacao_objeto/clientes"
+
 	"github.com/alura/orientacao_objeto/contas"
 )
 
 func main() {
 	cliente := contas.ContaCorrente{}
-	cliente.Titular = "Thiago"
+	cliente.Titular = clientes.Cliente{Nome: "Thiago"}
 	cliente.Saldo = 1000
 
-	contaDestino := contas.ContaCorrente{Titular: "Cliente Fake da silva", Saldo: 500}
+	contaDestino := contas.ContaCorrente{}
+	contaDestino.Titular = clientes.Cliente{Nome: "Vitoria Ferreira de souza"}
+	contaDestino.Saldo = 500
 
 	for {
 		fmt.Println("------------BANCO THG------------")
