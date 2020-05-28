@@ -5,23 +5,23 @@ import (
 	"os"
 )
 
-type ContaCorrente struct {
-	titular string
-	conta   int
-	agencia int
-	saldo   float64
+type ContaCorrente struct { // cria estrutura do objeto , (maiusculo permite encontrar em outros pacotes do projeto)
+	Titular string
+	Conta   int
+	Agencia int
+	Saldo   float64
 }
 
 func main() {
 	cliente := ContaCorrente{}
-	cliente.titular = "Thiago"
-	cliente.saldo = 1000
+	cliente.Titular = "Thiago"
+	cliente.Saldo = 1000
 
-	contaDestino := ContaCorrente{titular: "Cliente Fake da silva", saldo: 500}
+	contaDestino := ContaCorrente{Titular: "Cliente Fake da silva", Saldo: 500}
 
 	for {
 		fmt.Println("------------BANCO THG------------")
-		fmt.Println("Bem vindo", cliente.titular)
+		fmt.Println("Bem vindo", cliente.Titular)
 		menu()
 		comando := insereMenu()
 		switch comando {
@@ -31,25 +31,25 @@ func main() {
 			valorsaque := insereSaque()
 
 			fmt.Println(cliente.calculaSaque(valorsaque))
-			fmt.Println("Saldo final -> R$ ", cliente.saldo)
+			fmt.Println("Saldo final -> R$ ", cliente.Saldo)
 			os.Exit(1)
 
 		case 2:
 			fmt.Println("--SELECIONADO DEPÓSITO--")
 			fmt.Println("INSIRA O VALOR DO DEPÓSITO:")
 			deposito := insereDeposito()
-			fmt.Println(cliente.calculaDepoisto(deposito), cliente.saldo)
+			fmt.Println(cliente.calculaDepoisto(deposito), cliente.Saldo)
 			os.Exit(1)
 		case 3:
 			fmt.Println("--SELECIONADO SALDO--")
-			fmt.Println("SEU SALDO É : R$ ", cliente.saldo)
+			fmt.Println("SEU SALDO É : R$ ", cliente.Saldo)
 			os.Exit(1)
 		case 4:
 			fmt.Println("--SELECIONADO TRANSFERENCIA--")
 			fmt.Println("INSIRA O VALOR DA TRANSFERENCIA:")
 			transferencia := insereTransferencia()
 			cliente.calculaTransferencia(transferencia, &contaDestino)
-			fmt.Println("TRANSFERIDO : R$ ", transferencia, " para:", contaDestino.titular, ", Seu Saldo final agora é:", cliente.saldo)
+			fmt.Println("TRANSFERIDO : R$ ", transferencia, " para:", contaDestino.Titular, ", Seu Saldo final agora é:", cliente.Saldo)
 			os.Exit(1)
 		case 5:
 			fmt.Println("SAINDO..")
@@ -96,9 +96,9 @@ func insereTransferencia() float64 { // recebe valor para deposito
 }
 
 func (c *ContaCorrente) calculaSaque(valorsaque float64) string { // calcula meu saque - saldo
-	saldofinal := valorsaque <= c.saldo && valorsaque > 0
+	saldofinal := valorsaque <= c.Saldo && valorsaque > 0
 	if saldofinal {
-		c.saldo -= valorsaque
+		c.Saldo -= valorsaque
 		return "Saque realizado com sucesso !"
 
 	} else {
@@ -108,10 +108,10 @@ func (c *ContaCorrente) calculaSaque(valorsaque float64) string { // calcula meu
 }
 
 func (c *ContaCorrente) calculaDepoisto(deposito float64) string { // calcula meu deposito + saldo
-	novosaldo := deposito+c.saldo > 0
+	novosaldo := deposito+c.Saldo > 0
 
 	if novosaldo {
-		c.saldo += deposito
+		c.Saldo += deposito
 		return "Valor depositado com sucesso !"
 	} else {
 		return "erro ao depositar"
@@ -119,8 +119,8 @@ func (c *ContaCorrente) calculaDepoisto(deposito float64) string { // calcula me
 }
 
 func (c *ContaCorrente) calculaTransferencia(transferencia float64, contaDestino *ContaCorrente) bool {
-	if transferencia < c.saldo && transferencia > 0 {
-		c.saldo -= transferencia
+	if transferencia < c.Saldo && transferencia > 0 {
+		c.Saldo -= transferencia
 		contaDestino.calculaDepoisto(transferencia)
 		return true
 	} else {
